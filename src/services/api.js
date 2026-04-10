@@ -86,11 +86,8 @@ export const getMenuImage = (imageName, type = 'menu') => {
 
 export const getTestimoni = async () => {
   try {
-    const response = await api.get('/testimoni'); 
-    if (typeof response.data === 'string' && response.data.includes('<!doctype html>')) {
-      return [];
-    }
-    return response.data;
+    const response = await api.get('/testimoni');
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
     return [];
   }
