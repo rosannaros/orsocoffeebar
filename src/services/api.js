@@ -90,7 +90,6 @@ export const getTestimoni = async () => {
     if (typeof response.data === 'string' && response.data.includes('<!doctype html>')) {
       return [];
     }
-
     return response.data;
   } catch (error) {
     return [];
