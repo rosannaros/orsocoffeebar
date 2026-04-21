@@ -14,7 +14,7 @@
         <div v-else-if="orders.length === 0" class="orso-state-center">
           <p class="empty-desc">Belum ada riwayat pesanan. Silakan membuat pesanan terlebih dahulu.</p>
           <router-link to="/menu" class="btn-back-menu">
-            Buat Pesanan Sekarang
+            Pesan Sekarang
           </router-link>
         </div>
         
@@ -47,7 +47,7 @@
                   <span class="orso-total-amount">Rp{{ parseInt(order.total_harga).toLocaleString('id-ID') }}</span>
                 </div>
                 
-                <button @click="openDetail(order)" class="orso-btn-detail-only">
+                <button @click="openDetail(order)" class="btn-detail">
                   Detail
                 </button>
               </div>
@@ -58,7 +58,7 @@
 
       <div v-else class="orso-detail-view">
         <header class="orso-detail-header">
-          <button @click="closeDetail" class="orso-btn-back">←</button>
+          <button @click="closeDetail" class="btn-back-history">←</button>
           <div class="orso-header-text">
             <h1 class="orso-title">Detail Riwayat Pesanan</h1>
             <p class="orso-subtitle">#ORSO-{{ selectedOrder.id_pesanan }}</p>
@@ -110,8 +110,8 @@
           </div>
           
           <div class="orso-detail-actions">
-            <button @click="handlePesanLagi(selectedOrder.id_pesanan)" class="orso-btn-reorder-big">
-              PESAN LAGI SEKARANG
+            <button @click="handlePesanLagi(selectedOrder.id_pesanan)" class="btn-reorder">
+              Pesan Lagi Sekarang
             </button>
           </div>
         </div>
@@ -375,7 +375,7 @@ export default {
   color: #5C4033;
 }
 
-.orso-btn-detail-only {
+.btn-detail {
   padding: 8px 16px;
   background: #f1f3f5;
   border: 1.5px solid #dee2e6;

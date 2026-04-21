@@ -183,13 +183,13 @@
 .order-btn,
 .button-container button,
 .orso-btn-order-now,   
-.orso-btn-reorder-big,
-.orso-btn-detail-only,
+.btn-reorder,
+.btn-detail,
 .btn-pay-now,
 .btn-back-menu,
 .btn-logout,   
 .btn-check-history,
-.orso-btn-back {
+.btn-back-history {
   background-color: #5C4033; 
   color: #fff;
 }
@@ -231,11 +231,11 @@
 .register-card button,
 .profil-card button,
 .orso-btn-order-now,     
-.orso-btn-reorder-big,
+.btn-reorder,
 .btn-pay-now,
 .btn-back-menu,
 .btn-check-history,    
-.orso-btn-back {
+.btn-back-history {
   padding: 12px 24px; 
   font-weight: bold;     
   font-size: 14px;       
@@ -251,7 +251,7 @@
   box-sizing: border-box;
 }
 
-.orso-btn-back {
+.btn-back-history {
   width: 40px;
   height: 40px;
   padding: 0; 
@@ -266,13 +266,13 @@
 .btn-back-menu:hover,
 .btn-pay-now:hover,
 .orso-btn-order-now:hover,
-.orso-btn-reorder-big:hover,
+.btn-reorder:hover,
 .button-container a:hover,
 .button-container button:hover,
 .login-card button:hover,
 .register-card button:hover,
 .profil-card button:hover,
-.orso-btn-detail-only:hover,
+.btn-detail:hover,
 .order-btn:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
@@ -380,7 +380,7 @@
 
   .btn-back-menu,
   .btn-check-history,
-  .orso-btn-reorder-big {
+  .btn-reorder {
     width: 100%;
     max-width: 100%;
     margin-top: 10px;

@@ -18,7 +18,7 @@
         <h2 class="empty-title">Pesanan Tidak Ditemukan</h2>
         <p class="empty-desc">Tidak ada pesanan yang perlu dibayar atau sedang diproses.</p>
         <router-link to="/menu" class="btn-back-menu">
-          Buat Pesanan Sekarang
+          Pesan Sekarang
         </router-link>
       </div>
 
