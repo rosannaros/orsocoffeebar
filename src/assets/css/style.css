@@ -187,8 +187,7 @@
 .orso-btn-detail-only,
 .btn-pay-now,
 .btn-back-menu,
-.btn-logout,  
-.btn-refresh-status,    
+.btn-logout,   
 .btn-check-history,
 .orso-btn-back {
   background-color: #5C4033; 
@@ -235,8 +234,7 @@
 .orso-btn-reorder-big,
 .btn-pay-now,
 .btn-back-menu,
-.btn-check-history, 
-.btn-refresh-status,     
+.btn-check-history,    
 .orso-btn-back {
   padding: 12px 24px; 
   font-weight: bold;     
@@ -266,8 +264,7 @@
 
 .btn-check-history:hover,
 .btn-back-menu:hover,
-.btn-pay-now:hover,      
-.btn-refresh-status:hover,
+.btn-pay-now:hover,
 .orso-btn-order-now:hover,
 .orso-btn-reorder-big:hover,
 .button-container a:hover,
@@ -342,12 +339,6 @@
   transform: scale(1.1);
 }
 
-.btn-refresh-status {
-  border-radius: 50px; 
-  padding-left: 30px; 
-  padding-right: 30px;
-}
-
 .cart-buttons {
   display: flex;
   justify-content: flex-end; 
@@ -395,9 +386,7 @@
     margin-top: 10px;
   }
 
-  .status-message 
-  .btn-pay-now,
-  .btn-refresh-status {
+  .status-message .btn-pay-now {
     width: auto; 
     margin: 10px auto 0 auto;
     display: table; 

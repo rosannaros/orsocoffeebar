@@ -26,11 +26,6 @@
         <header class="active-header">
           <h1 class="order-title">Status Pesanan</h1>
           <p class="order-subtitle">Kamu memiliki {{ activeOrders.length }} pesanan yang sedang berjalan</p>
-          
-          <button @click="fetchActiveOrder" class="btn-refresh-status" :disabled="loading" style="margin-top: 10px;">
-            <span v-if="loading">⏳ Memperbarui...</span>
-            <span v-else>🔄 Perbarui Semua Status</span>
-          </button>
         </header>
 
         <div v-for="order in activeOrders" :key="order.id_pesanan" class="order-card-group" style="margin-bottom: 40px;">
@@ -201,7 +196,7 @@ export default {
 
   mounted() {
     this.fetchActiveOrder();
-    this.refreshInterval = setInterval(this.fetchActiveOrder, 15000);
+    this.refreshInterval = setInterval(this.fetchActiveOrder, 30000);
   },
 
   beforeUnmount() {
@@ -301,8 +296,7 @@ export default {
   gap: 10px;
 }
 
-.status-message 
-.btn-pay-now {
+.status-message .btn-pay-now {
   margin-top: 20px;
 }
 
