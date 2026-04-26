@@ -15,7 +15,9 @@
     </div>
 
     <div class="menu-grid">
-      <div class="menu-card" v-for="item in filteredMenu" :key="item.id_menu">
+      <div class="menu-card" v-for="item in filteredMenu" :key="item.id_menu" :class="{ 'is-habis': item.status_menu === 'habis' }">
+
+        <div v-if="item.status_menu === 'habis'" class="label-habis">HABIS</div>
         <img :src="getMenuImage(item.image_url)" @error="handleImageError" />
         <h1>{{ item.nama_menu }}</h1>
         <div class="price">Rp {{ formatPrice(item.harga) }}</div>
@@ -25,7 +27,7 @@
           <div class="quantity-control">
             <button @click="decrease(item)">-</button>
             <span class="qty-number">{{ cart.getQty(item.id_menu) }}</span>
-            <button @click="increase(item)">+</button>
+            <button @click="item.status_menu !== 'habis' && increase(item)">+</button>
           </div>
         </div>
       </div>
@@ -217,14 +219,9 @@ export default {
   padding: 15px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
   height: 100%; 
   max-width: 360px;
   margin: 0 auto;
-}
-
-.menu-card:hover {
-  transform: translateY(-5px);
 }
 
 .menu-card img {
@@ -298,6 +295,27 @@ export default {
   text-align: center;
   border-radius: 6px;
   border: 1px solid #ccc;
+}
+
+.menu-card.is-habis {
+  filter: grayscale(1);
+  opacity: 0.6;
+  position: relative;
+  pointer-events: none; 
+}
+
+.label-habis {
+  position: absolute;
+  top: 10%; 
+  left: 15%;
+  transform: translate(-50%, -50%);
+  background: black; 
+  color: white;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
 @media (max-width: 768px) {
@@ -391,6 +409,21 @@ export default {
   .category-filter button.active,
   .category-filter button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .label-habis {
+    top: 10%; 
+    left: 15%;
+    transform: translate(-50%, -50%);
+    font-size: 10px; 
+    padding: 4px 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+  }
+
+  .menu-card.is-habis {
+    opacity: 0.5;
   }
 }
 </style>

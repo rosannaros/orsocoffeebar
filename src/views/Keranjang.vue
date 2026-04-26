@@ -172,7 +172,12 @@ export default {
       } catch (error) {
         Swal.close();
         console.error("Gagal Checkout:", error);
-        Swal.fire("Error", "Gagal membuat pesanan. Silakan coba lagi.", "error");
+        Swal.fire({
+          icon: 'error',
+          title: 'Pesanan Gagal',
+          text: 'Maaf, terjadi kendala. Pastikan koneksi stabil atau cek ketersediaan menu.',
+          confirmButtonColor: '#5C4033',
+        });
       }
     }
   }
@@ -272,7 +277,7 @@ export default {
   font-size: 22px;
   font-weight: 800;
   margin-bottom: 20px;
-  border-top: 2px solid #eee;
+  border-top: 2px solid #fff;
   padding-top: 10px;
 }
 

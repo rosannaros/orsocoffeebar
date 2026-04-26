@@ -24,8 +24,8 @@ describe('Register', () => {
     
     const response = await api.post('/users/register', userData);
     
-    expect(response.success).toBe(true); // Cek hasil return data
-    expect(api.post).toHaveBeenCalledWith('/users/register', userData); // Cek fungsi terpanggil
+    expect(response.success).toBe(true); 
+    expect(api.post).toHaveBeenCalledWith('/users/register', userData); 
   });
 
   it('Navigasi Register Sukses', () => {

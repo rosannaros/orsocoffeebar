@@ -42,7 +42,7 @@
             <div class="status-message">
               <div v-if="order.status_pesanan.toLowerCase() === 'pending'">
                 <div class="payment-deadline-info">
-                  <span class="icon-clock">⚠️</span> Pesanan akan dibatalkan otomatis jika tidak dibayar dalam 10 menit.
+                  Pesanan akan dibatalkan otomatis jika tidak dibayar dalam 10 menit.
                 </div>
                 
                 <p>Silakan selesaikan pembayaran agar barista dapat memproses kopi Anda.</p>
@@ -290,8 +290,8 @@ export default {
   font-size: 13px;
   color: #856404;
   margin: 15px auto;
-  text-align: left;
-  display: flex;
+  text-align: center;
+  display: block;
   align-items: center;
   gap: 10px;
 }
