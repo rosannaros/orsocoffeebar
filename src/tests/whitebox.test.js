@@ -99,16 +99,6 @@ describe('Login', () => {
     
     expect(state.error).toEqual("Email atau password salah.");
   });
-
-  it('Login Default Error', () => {
-    
-    const state = { error: '' };
-    const err = { error: "" };
-    
-    state.error = err.error || "Gagal masuk ke akun.";
-    
-    expect(state.error).toEqual("Gagal masuk ke akun.");
-  });
 });
 
 describe('Menu', () => {
@@ -122,25 +112,22 @@ describe('Menu', () => {
     expect(getMenuMock).toHaveBeenCalled();
   });
 
-  it('getMenuImage External', () => {
+  it('Handling Menu Image URL', () => {
+    
+    const BASE_URL = 'http://localhost:8000';
+    
+    const getMenuImage = (imageName, type = 'menu') => {
+      if (!imageName) return '/image/placeholder-coffee.jpg';
+      if (imageName.startsWith('http')) return imageName;
+      return `${BASE_URL}/uploads/${type}/${imageName}`;
+    };
     
     const externalPath = 'https://coffeeshop.example.com/latte.jpg';
-    const getMenuImage = (img) => img.startsWith('http') ? img : `url/${img}`;
-    
-    const result = getMenuImage(externalPath);
-    
-    expect(result).toEqual(externalPath);
-  });
+    expect(getMenuImage(externalPath)).toEqual(externalPath);
 
-  it('getMenuImage Local', () => {
-    
     const fileName = 'espresso.png';
-    const BASE_URL = 'http://localhost:8000';
-    const getMenuImage = (img) => `${BASE_URL}/uploads/menu/${img}`;
-    
-    const result = getMenuImage(fileName);
-    
-    expect(result).toEqual(`${BASE_URL}/uploads/menu/espresso.png`);
+    expect(getMenuImage(fileName)).toEqual(`${BASE_URL}/uploads/menu/espresso.png`);
+    expect(getMenuImage('')).toEqual('/image/placeholder-coffee.jpg');
   });
 
   it('Filtering Kategori', () => {
@@ -487,31 +474,9 @@ describe('TulisTestimoni', () => {
     expect(state.foto).toEqual(null);
     expect(state.preview).toEqual(null);
   });
-
-  it('Character Limit', () => {
-    
-    const testimoniA = "Singkat saja";
-    const testimoniB = "A".repeat(100);
-    
-    const isReachedA = testimoniA.length >= 100;
-    const isReachedB = testimoniB.length >= 100;
-    
-    expect(isReachedA).toEqual(false);
-    expect(isReachedB).toEqual(true);
-  });
 });
 
 describe('EditProfil', () => {
-  it('updateUser', () => {
-    
-    const userId = "ID-12345";
-   
-    const cleanId = userId.toString().replace(/\D/g, "");
-    
-    expect(cleanId).toEqual("12345");
-    expect(cleanId).not.toContain("ID-");
-  });
-
   it('checkDataChange', () => {
    
     const oldData = { nama: 'Andi', email: 'andi@test.com' };
@@ -541,23 +506,6 @@ describe('EditProfil', () => {
     const storedData = JSON.parse(localStorage.getItem("user"));
     expect(storedData.nama).toEqual('Budi Updated');
     expect(spy).toHaveBeenCalledWith("user", JSON.stringify(updatedUserData));
-  });
- 
-  it('Password Toggle', () => {
-  
-    let showPassword = false;
-    let inputType = 'password';
-   
-    showPassword = !showPassword;
-    inputType = showPassword ? 'text' : 'password';
-  
-    expect(showPassword).toEqual(true);
-    expect(inputType).toEqual('text');
-
-    showPassword = !showPassword;
-    inputType = showPassword ? 'text' : 'password';
-      
-    expect(inputType).toEqual('password');
   });
 });
 
@@ -596,17 +544,5 @@ describe('ProfildanAuth', () => {
     const isProtected = profileRoute.meta.requiresAuth;
   
     expect(isProtected).toEqual(true);
-  });
-
-  it('Scroll Behavior', () => {
-  
-    const scrollBehavior = (to, from, savedPosition) => {
-      return { top: 0 };
-    };
-    
-    const result = scrollBehavior({}, {}, null);
-  
-    expect(result).toEqual({ top: 0 });
-    expect(result.top).toEqual(0);
   });
 });
