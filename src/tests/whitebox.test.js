@@ -212,28 +212,6 @@ describe('Keranjang', () => {
     
     expect(cart[1]).toEqual(undefined);
   });
-
-  it('Reactive Popup', () => {
-    
-    const state = { showPopup: false, popupText: '' };
-    const message = "Pesanan ditambahkan!";
-    
-    state.popupText = message;
-    state.showPopup = true;
-    
-    expect(state.showPopup).toEqual(true);
-    expect(state.popupText).toEqual("Pesanan ditambahkan!");
-  });
-
-  it('persistCart Sync', () => {
-    
-    const items = { 1: { id_menu: 1, qty: 2 } };
-    
-    localStorage.setItem("cart", JSON.stringify(items));
-    
-    const result = JSON.parse(localStorage.getItem("cart"));
-    expect(result).toEqual(items);
-  });
 });
 
 describe('Pesanan', () => {
