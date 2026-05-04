@@ -220,16 +220,12 @@ describe('Pesanan', () => {
     const api = {
       post: vi.fn().mockResolvedValue({ status: 201 })
     };
-    const userRole = 'pelanggan';
     const orderData = { total: 50000, items: [{ id_menu: 1, qty: 2 }] };
     
-    const response = await api.post('/orders', orderData, {
-      headers: { 'X-Role': userRole }
-    });
+    const response = await api.post('/orders', orderData, {});
     
     expect(response.status).toEqual(201);
     expect(api.post).toHaveBeenCalledWith('/orders', orderData, {
-      headers: { 'X-Role': 'pelanggan' }
     });
   });
 

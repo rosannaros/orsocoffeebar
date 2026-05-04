@@ -8,12 +8,8 @@ const api = axios.create({
 });
 
 export const createOrder = async (orderData) => {
-  const userData = JSON.parse(localStorage.getItem('user'));
-  const userRole = userData ? userData.role : 'pelanggan';
   try {
-    const response = await api.post('/order', orderData, {
-      headers: { 'X-Role': userRole }
-    });
+    const response = await api.post('/order', orderData, {});
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : new Error("Gagal membuat pesanan");
@@ -57,13 +53,9 @@ export const loginUser = async (loginData) => {
 };
 
 export const updateUser = async (userId, userData) => {
-  const storedData = JSON.parse(localStorage.getItem('user'));
-  const userRole = storedData ? storedData.role : ''; 
   try {
     const cleanId = userId.toString().replace(/\D/g, "");
-    const response = await api.put(`/users/update/${cleanId}`, userData, {
-      headers: { 'X-Role': userRole }
-    });
+    const response = await api.put(`/users/update/${cleanId}`, userData);
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : new Error("Gagal mengupdate profil");
