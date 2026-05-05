@@ -86,13 +86,10 @@ export const getTestimoni = async () => {
 };
 
 export const postTestimoni = async (formData) => {
-  const userData = JSON.parse(localStorage.getItem('user'));
-  const userRole = userData ? userData.role : ''; 
   try {
     const response = await api.post('/testimoni', formData, {
       headers: { 
-        'Content-Type': 'multipart/form-data',
-        'X-Role': userRole
+        'Content-Type': 'multipart/form-data'
       }
     });
     return response.data;
