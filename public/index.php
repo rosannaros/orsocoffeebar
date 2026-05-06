@@ -42,8 +42,15 @@ $adminController = new AdminController($twig);
 $app->get('/login', function ($request, $response) use ($twig) {
     return $twig->render($response, 'login.php'); 
 });
-$app->get('/logout', function ($request, $response) use ($twig) {
-    return $twig->render($response, 'logout.php'); 
+
+$app->get('/logout', function ($request, $response) {
+
+    session_start();
+    session_destroy();
+
+    return $response
+        ->withHeader('Location', '/login')
+        ->withStatus(302);
 });
 
 // DASHBOARD
