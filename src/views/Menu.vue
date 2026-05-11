@@ -123,7 +123,7 @@ export default {
     },
 
     handleImageError(e) {
-      e.target.src = '/image/placeholder-coffee.jpg';
+      e.target.src = '/image/favicon.png';
     },
   }
 }

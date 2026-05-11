@@ -11,7 +11,7 @@
 
     <section v-if="testimoni.length > 0" class="testimoni-container">
       <div v-for="t in testimoni" :key="t.id_testimoni" class="testimoni-card">
-        <img :src="t.foto_testimoni ? getMenuImage(t.foto_testimoni, 'testimoni') : '/images/placeholder-user.png'" @error="handleImageError" alt="Foto Testimoni"/>
+        <img :src="t.foto_testimoni ? getMenuImage(t.foto_testimoni, 'testimoni') : '/images/favicon.png'" @error="handleImageError" alt="Foto Testimoni"/>
         <h3>{{ t.nama || 'Pelanggan Orso' }}</h3>
         <p>“{{ t.isi_testimoni }}”</p>
       </div>
@@ -71,7 +71,7 @@ export default {
     },
 
     handleImageError(e) {
-      const placeholder = '/images/placeholder-user.png';
+      const placeholder = '/images/favicon.png';
       if (e.target.src !== window.location.origin + placeholder) {
         e.target.src = placeholder;
       }

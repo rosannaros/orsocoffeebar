@@ -71,7 +71,7 @@ export const getMenu = async () => {
   }
 };
 export const getMenuImage = (imageName, type = 'menu') => {
-  if (!imageName) return '/image/placeholder-coffee.jpg';
+  if (!imageName) return '/image/favicon.png';
   if (imageName.startsWith('http')) return imageName;
   return `${BASE_URL}/uploads/${type}/${imageName}`;
 };

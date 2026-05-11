@@ -12,7 +12,7 @@
           &times;
         </button>
 
-        <img :src="item.fullImageUrl" @error="(e) => { e.target.src = '/image/placeholder-coffee.jpg'; }" alt="Produk"/>
+        <img :src="item.fullImageUrl" @error="(e) => { e.target.src = '/image/favicon.png'; }" alt="Produk"/>
 
         <div class="cart-info">
           <h3>{{ item.name }}</h3>
