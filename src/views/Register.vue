@@ -73,7 +73,10 @@ export default {
           text: response.message,
           confirmButtonColor: '#6b4f3a'
         }).then(() => {
-          this.$router.push("/login");
+          this.$router.push({ 
+            path: "/login", 
+            query: { email: this.email } 
+          });
         });
 
       } catch (err) {

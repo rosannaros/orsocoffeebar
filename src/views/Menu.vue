@@ -32,6 +32,11 @@
         </div>
       </div>
     </div>
+    
+    <div v-if="filteredMenu.length === 0" class="orso-state-center">
+      <p class="empty-desc">Menu tidak ditemukan.</p>
+    </div>
+    
   </div>
 </template>
 

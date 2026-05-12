@@ -8,8 +8,12 @@ const api = axios.create({
 });
 
 export const createOrder = async (orderData) => {
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const userRole = userData ? userData.role : 'pelanggan';
   try {
-    const response = await api.post('/order', orderData, {});
+    const response = await api.post('/order', orderData, {
+      headers: { 'X-Role': userRole }
+    });
     return response.data;
   } catch (error) {
     throw error.response ? error.response.data : new Error("Gagal membuat pesanan");
@@ -86,10 +90,13 @@ export const getTestimoni = async () => {
 };
 
 export const postTestimoni = async (formData) => {
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const userRole = userData ? userData.role : ''; 
   try {
     const response = await api.post('/testimoni', formData, {
       headers: { 
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'multipart/form-data',
+        'X-Role': userRole
       }
     });
     return response.data;

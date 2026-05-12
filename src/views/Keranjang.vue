@@ -109,7 +109,16 @@ export default {
         const userData = JSON.parse(localStorage.getItem('user'));
 
         if (!userData) {
-          Swal.fire("Login Diperlukan", "Silakan login terlebih dahulu untuk memesan.", "warning");
+          Swal.fire({
+            icon: 'info',
+            text: 'Silakan login terlebih dahulu untuk melakukan pembayaran.',
+            confirmButtonColor: '#5C4033',
+            confirmButtonText: 'Login Sekarang',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.$router.push('/login');
+            }
+          });
           return;
         }
 
