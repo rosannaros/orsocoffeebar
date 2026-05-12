@@ -10,7 +10,6 @@ use PDO;
 
 class MidtransController {
     public function handleNotification(Request $request, Response $response) {
-        // 1. Validasi: Pastikan ini adalah request POST dan memiliki body
         $input = file_get_contents('php://input');
         if (empty($input)) {
             $response->getBody()->write(json_encode(["error" => "No data received"]));
@@ -32,7 +31,6 @@ class MidtransController {
             $db = new Db();
             $conn = $db->connect();
             
-            // Logika Settlement
             if ($transaction == 'settlement' || $transaction == 'capture') {
                 $sql = "UPDATE pesanan SET status_pesanan = 'diproses' WHERE id_pesanan = :id";
                 $stmt = $conn->prepare($sql);

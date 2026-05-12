@@ -10,8 +10,6 @@ use PDO;
 use Exception;
 
 class OrderController {
-
-    // 1. MEMBUAT PESANAN BARU 
 public function createOrder(Request $request, Response $response) {
     date_default_timezone_set('Asia/Makassar');
 
@@ -26,7 +24,6 @@ public function createOrder(Request $request, Response $response) {
         return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
     }
 
-    // Midtrans config
     Config::$serverKey = 'Mid-server-Fv0j-OGf-rcrajTkL7HbF4EK';
     Config::$isProduction = false;
     Config::$isSanitized = true;
@@ -101,7 +98,6 @@ public function createOrder(Request $request, Response $response) {
             ]);
         }
 
-        // MIDTRANS
         $params = [
             'transaction_details' => [
                 'order_id' => 'ORSO-' . $idPesanan . '-' . time(),
@@ -118,7 +114,6 @@ public function createOrder(Request $request, Response $response) {
 
         $snapToken = Snap::getSnapToken($params);
 
-        // SIMPAN TOKEN
         $stmtToken = $conn->prepare("
             UPDATE pesanan 
             SET snap_token = :token 
@@ -152,15 +147,12 @@ public function createOrder(Request $request, Response $response) {
         return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
     }
 }
-
-    // 2. RIWAYAT PESANAN
     public function getCustomerOrders(Request $request, Response $response, array $args) {
         $id_user = $args['id_user']; 
         try {
             $db = new Db();
             $conn = $db->connect();
 
-            // PEMBERSIHAN OTOMATIS: Membatalkan pesanan kadaluarsa sebelum data ditampilkan ke user
             $sqlCleanup = "UPDATE pesanan SET status_pesanan = 'dibatalkan' 
                            WHERE id_user = :id_u 
                            AND status_pesanan = 'pending' 
@@ -181,8 +173,6 @@ public function createOrder(Request $request, Response $response) {
             return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
-
-    // 3. DETAIL PESANAN: Menampilkan item beserta URL gambar lengkap
     public function getOrderDetail(Request $request, Response $response, array $args) {
         $id_pesanan = $args['id'];
         try {
@@ -207,8 +197,7 @@ public function createOrder(Request $request, Response $response) {
             return $response->withStatus(500);
         }
     }
-    
-    // --- 4. ADMIN: Manajemen Semua Pesanan ---
+
     public function getAllOrders(Request $request, Response $response) {
         try {
             $db = new Db();
@@ -225,7 +214,6 @@ public function createOrder(Request $request, Response $response) {
         }
     }
 
-    // --- 5. ADMIN: Filter Laporan Berdasarkan Tanggal ---
     public function getOrdersByDate(Request $request, Response $response, array $args) {
         $tanggal = $args['date']; 
         try {
@@ -244,7 +232,6 @@ public function createOrder(Request $request, Response $response) {
         }
     }
 
-    // --- 6. ADMIN: Mengubah Status Pesanan Menjadi Selesai ---
     public function updateStatusSelesai(Request $request, Response $response, array $args) {
         $id_pesanan = $args['id'];
         try {
@@ -261,7 +248,6 @@ public function createOrder(Request $request, Response $response) {
         }
     }
 
-    // --- 7. LAPORAN: Statistik Pendapatan Hari Ini dan Bulan Ini ---
     public function getReports(Request $request, Response $response) {
         try {
             $db = new Db();

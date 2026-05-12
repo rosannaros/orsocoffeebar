@@ -10,7 +10,6 @@ class MidtransHandler {
 
     public function handleNotification(Request $request, Response $response) {
         try {
-            // Membaca body request JSON secara langsung
             $body = $request->getBody()->getContents();
             $data = json_decode($body, true);
 
@@ -22,14 +21,12 @@ class MidtransHandler {
             $transaction = $data['transaction_status'] ?? '';
             $order_id_full = $data['order_id'] ?? '';
             
-            // Ekstrak ID Pesanan (ORSO-54-timestamp -> ambil 54)
             $parts = explode('-', $order_id_full);
             $id_pesanan = isset($parts[1]) ? $parts[1] : $order_id_full;
 
             $db = new Db();
             $conn = $db->connect();
 
-            // Logika pembaruan status
             if ($transaction == 'settlement' || $transaction == 'capture') {
                 $sql = "UPDATE pesanan SET status_pesanan = 'diproses' WHERE id_pesanan = :id";
                 $stmt = $conn->prepare($sql);

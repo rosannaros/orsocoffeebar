@@ -8,7 +8,6 @@ use PDO;
 use Exception;
 
 class TestimoniController {
-    // 1. READ APPROVED (Landing Page)
     public function getApproved(Request $request, Response $response) {
         try {
             $db = new Db();
@@ -32,82 +31,68 @@ class TestimoniController {
         }
     }
 
-// 2. CREATE TESTIMONI (Customer)
-public function create(Request $request, Response $response) {
+    public function create(Request $request, Response $response) {
 
-    $data = $request->getParsedBody();
-    $uploadedFiles = $request->getUploadedFiles();
+        $data = $request->getParsedBody();
+        $uploadedFiles = $request->getUploadedFiles();
 
-    $id_user = $data['id_user'] ?? null;
-    $isi_testimoni = $data['isi_testimoni'] ?? '';
-    $foto = $uploadedFiles['foto_testimoni'] ?? null;
-    $fotoName = null;
+        $id_user = $data['id_user'] ?? null;
+        $isi_testimoni = $data['isi_testimoni'] ?? '';
+        $foto = $uploadedFiles['foto_testimoni'] ?? null;
+        $fotoName = null;
 
-    if (!$id_user) {
-        $response->getBody()->write(json_encode(["error" => "User ID tidak ditemukan."]));
-        return $response->withStatus(400);
-    }
-
-    try {
-        $db = new Db();
-        $conn = $db->connect();
-
-        $testimoniDir = __DIR__ . '/../../public/uploads/testimoni';
-
-        if (!is_dir($testimoniDir)) {
-            mkdir($testimoniDir, 0777, true);
+        if (!$id_user) {
+            $response->getBody()->write(json_encode(["error" => "User ID tidak ditemukan."]));
+            return $response->withStatus(400);
         }
 
-        // ===============================
-        // LOGIKA FOTO BARU
-        // ===============================
+        try {
+            $db = new Db();
+            $conn = $db->connect();
 
-        if ($foto && $foto->getError() === UPLOAD_ERR_OK) {
+            $testimoniDir = __DIR__ . '/../../public/uploads/testimoni';
 
-            // Jika user upload foto sendiri
-            $extension = pathinfo($foto->getClientFilename(), PATHINFO_EXTENSION);
-            $fotoName = bin2hex(random_bytes(8)) . '.' . $extension;
+            if (!is_dir($testimoniDir)) {
+                mkdir($testimoniDir, 0777, true);
+            }
 
-            $foto->moveTo($testimoniDir . DIRECTORY_SEPARATOR . $fotoName);
+            if ($foto && $foto->getError() === UPLOAD_ERR_OK) {
+                $extension = pathinfo($foto->getClientFilename(), PATHINFO_EXTENSION);
+                $fotoName = bin2hex(random_bytes(8)) . '.' . $extension;
 
-        } else {
+                $foto->moveTo($testimoniDir . DIRECTORY_SEPARATOR . $fotoName);
 
-            // Pakai foto default yang kamu kirim
-            $fotoName = 'beruang-imut.jpeg';
-        }
+            } else {
+                $fotoName = 'beruang-imut.jpeg';
+            }
 
-        // ===============================
-        // INSERT TESTIMONI
-        // ===============================
+            $sql = "INSERT INTO testimoni
+                    (id_user, isi_testimoni, foto_testimoni, status_persetujuan)
+                    VALUES (:id_user, :isi, :foto, 'pending')";
 
-        $sql = "INSERT INTO testimoni
-                (id_user, isi_testimoni, foto_testimoni, status_persetujuan)
-                VALUES (:id_user, :isi, :foto, 'pending')";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ':id_user' => $id_user,
+                ':isi'     => $isi_testimoni,
+                ':foto'    => $fotoName
+            ]);
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([
-            ':id_user' => $id_user,
-            ':isi'     => $isi_testimoni,
-            ':foto'    => $fotoName
-        ]);
+            $response->getBody()->write(json_encode([
+                "message" => "Ulasan terkirim! Menunggu moderasi admin."
+            ]));
 
-        $response->getBody()->write(json_encode([
-            "message" => "Ulasan terkirim! Menunggu moderasi admin."
-        ]));
+            return $response->withStatus(201);
 
-        return $response->withStatus(201);
+        } catch (Exception $e) {
 
-    } catch (Exception $e) {
-
-        $response->getBody()->write(json_encode([
+            $response->getBody()->write(json_encode([
             "error" => $e->getMessage()
-        ]));
+            ]));
 
-        return $response->withStatus(500);
+            return $response->withStatus(500);
+        }
     }
-}
 
-    // 3. APPROVE TESTIMONI (Owner)
     public function approveTestimoni(Request $request, Response $response, array $args) {
 
         $id = $args['id'];
@@ -139,7 +124,6 @@ public function create(Request $request, Response $response) {
         }
     }
 
-    // 4. DELETE TESTIMONI
     public function delete(Request $request, Response $response, array $args) {
 
         $id = $args['id'];
@@ -147,15 +131,11 @@ public function create(Request $request, Response $response) {
         try {
             $db = new Db();
             $conn = $db->connect();
-
-            // Ambil nama file
             $stmtFile = $conn->prepare(
                 "SELECT foto_testimoni FROM testimoni WHERE id_testimoni = :id"
             );
             $stmtFile->execute([':id' => $id]);
             $row = $stmtFile->fetch(PDO::FETCH_ASSOC);
-
-            // Hapus file jika ada
             if ($row && $row['foto_testimoni']) {
 
                 $path = __DIR__ . '/../../public/uploads/testimoni/' . $row['foto_testimoni'];
@@ -165,7 +145,6 @@ public function create(Request $request, Response $response) {
                 }
             }
 
-            // Hapus dari database
             $stmt = $conn->prepare(
                 "DELETE FROM testimoni WHERE id_testimoni = :id"
             );
@@ -187,7 +166,6 @@ public function create(Request $request, Response $response) {
         }
     }
 
-    // 5. READ ALL TESTIMONI (Admin)
     public function getAll(Request $request, Response $response) {
 
         try {

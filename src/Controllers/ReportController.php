@@ -8,13 +8,11 @@ use PDO;
 use PDOException;
 
 class ReportController {
-    // 1. Laporan Pendapatan Harian
     public function dailyReport(Request $request, Response $response) {
         try {
             $db = new Db();
             $conn = $db->connect();
             
-            // Mengambil total pendapatan hari ini yang statusnya 'selesai'
             $sql = "SELECT SUM(total_harga) as total_harian, COUNT(id_pesanan) as jumlah_transaksi 
                     FROM pesanan 
                     WHERE DATE(tgl_pesanan) = CURDATE() AND status_pesanan = 'selesai'";
@@ -32,7 +30,6 @@ class ReportController {
         }
     }
 
-    // 2. Laporan Pendapatan Bulanan 
     public function monthlyReport(Request $request, Response $response) {
         try {
             $db = new Db();

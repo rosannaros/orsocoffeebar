@@ -8,8 +8,6 @@ use PDO;
 use PDOException;
 
 class MenuController {
-
-    // 1. Ambil Semua Menu
     public function getAll(Request $request, Response $response) {
         try {
             $db = new Db();
@@ -26,13 +24,11 @@ class MenuController {
         }
     }
 
-    // 2. Tambah Menu Baru
     public function create(Request $request, Response $response) {
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
         $foto = $uploadedFiles['image_url'] ?? null;
 
-        // 🔥 STATUS DEFAULT
         $status = in_array($data['status_menu'] ?? '', ['tersedia', 'habis'])
             ? $data['status_menu']
             : 'tersedia';
@@ -76,14 +72,12 @@ class MenuController {
         }
     }
 
-    // 3. Update Menu
     public function update(Request $request, Response $response, array $args) {
         $id = $args['id'];
         $data = $request->getParsedBody();
         $uploadedFiles = $request->getUploadedFiles();
         $foto = $uploadedFiles['image_url'] ?? null;
 
-        // 🔥 VALIDASI STATUS
         $status = in_array($data['status_menu'] ?? '', ['tersedia', 'habis'])
             ? $data['status_menu']
             : 'tersedia';
@@ -146,7 +140,6 @@ class MenuController {
         }
     }
 
-    // 4. Hapus Menu
     public function delete(Request $request, Response $response, array $args) {
         $id = $args['id'];
 

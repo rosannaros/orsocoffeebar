@@ -7,11 +7,9 @@ use App\Models\Db;
 use PDO;
 
 class UserController {
-    // REGISTER
     public function register(Request $request, Response $response) {
         $data = $request->getParsedBody();
-        
-        // Pastikan password ada sebelum di-hash
+
         $password = $data['password'] ?? '';
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -49,7 +47,7 @@ class UserController {
             return $response->withHeader('Content-Type', 'application/json')->withStatus(500);
         }
     }
-    // LOGIN
+
     public function login(Request $request, Response $response) {
         $data = $request->getParsedBody();
 
@@ -80,7 +78,6 @@ class UserController {
         }
     }
 
-    // Ambil Semua User
     public function getAllUsers(Request $request, Response $response) {
         try {
             $db = new Db();
@@ -98,7 +95,6 @@ class UserController {
         }
     }   
 
-    // Update User (Edit)
     public function updateUser(Request $request, Response $response, array $args) {
         $id = $args['id'];
         $data = $request->getParsedBody();
@@ -123,7 +119,6 @@ class UserController {
         }
     }
 
-    // Hapus User
     public function deleteUser(Request $request, Response $response, array $args) {
         $id = $args['id'];
         try {
@@ -141,16 +136,14 @@ class UserController {
         }
     }
     
-    // EDIT PROFILE
     public function updateProfile(Request $request, Response $response, array $args) {
-        $id = $args['id']; // Ambil ID user dari URL
+        $id = $args['id'];
         $data = $request->getParsedBody();
 
         try {
             $db = new Db();
             $conn = $db->connect();
 
-            // Cek apakah user ingin update password juga
             if (!empty($data['password'])) {
                 $passwordHash = password_hash($data['password'], PASSWORD_DEFAULT);
                 $sql = "UPDATE users SET nama = :nama, email = :email, password = :pass WHERE id_user = :id";
@@ -161,7 +154,6 @@ class UserController {
                     ':id'    => $id
                 ];
             } else {
-                // Update tanpa ganti password
                 $sql = "UPDATE users SET nama = :nama, email = :email WHERE id_user = :id";
                 $params = [
                     ':nama'  => $data['nama'],

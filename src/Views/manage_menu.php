@@ -13,7 +13,7 @@
                 <th>Nama</th>
                 <th>Kategori</th>
                 <th>Harga</th>
-                <th>Status</th> <!-- 🔥 TAMBAHAN -->
+                <th>Status</th>
                 <th>Opsi</th>
             </tr>
         </thead>
@@ -21,7 +21,6 @@
     </table>
 </div>
 
-<!-- ================= MODAL TAMBAH ================= -->
 <div class="modal fade" id="modalTambahMenu">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -38,7 +37,6 @@
                         <option value="Mojito">Mojito</option>
                     </select>
 
-                    <!-- STATUS TAMBAH -->
                     <select name="status_menu" class="form-select mb-3">
                         <option value="tersedia">Tersedia</option>
                         <option value="habis">Habis</option>
@@ -59,7 +57,6 @@
     </div>
 </div>
 
-<!-- ================= MODAL EDIT ================= -->
 <div class="modal fade" id="modalEditMenu">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -78,7 +75,6 @@
                         <option value="Mojito">Mojito</option>
                     </select>
 
-                    <!-- 🔥 STATUS EDIT -->
                     <select id="edit-status" name="status_menu" class="form-select mb-3">
                         <option value="tersedia">Tersedia</option>
                         <option value="habis">Habis</option>
@@ -100,7 +96,7 @@
 </div>
 
 <script>
-// ================= LOAD MENU =================
+
 async function loadMenu() {
     try {
         const res = await fetch(`${BASE_URL}/menu`);
@@ -137,7 +133,6 @@ async function loadMenu() {
     }
 }
 
-// ================= TAMBAH =================
 async function saveMenu(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
@@ -165,7 +160,6 @@ async function saveMenu(e) {
     }
 }
 
-// ================= OPEN EDIT =================
 function openEditModal(menu) {
     document.getElementById('edit-id').value = menu.id_menu;
     document.getElementById('edit-nama').value = menu.nama_menu;
@@ -173,13 +167,11 @@ function openEditModal(menu) {
     document.getElementById('edit-kategori').value = menu.kategori;
     document.getElementById('edit-deskripsi').value = menu.deskripsi || '';
 
-    // 🔥 SET STATUS
     document.getElementById('edit-status').value = menu.status_menu || 'tersedia';
 
     new bootstrap.Modal(document.getElementById('modalEditMenu')).show();
 }
 
-// ================= UPDATE =================
 async function updateMenu(e) {
     e.preventDefault();
 
@@ -208,7 +200,6 @@ async function updateMenu(e) {
     }
 }
 
-// ================= DELETE =================
 async function deleteMenu(id) {
     if (confirm("Hapus menu ini secara permanen?")) {
         try {
@@ -230,6 +221,5 @@ async function deleteMenu(id) {
     }
 }
 
-// ================= AUTO LOAD =================
 loadMenu();
 </script>

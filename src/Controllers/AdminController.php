@@ -14,7 +14,6 @@ class AdminController {
         $this->view = $view;
     }
 
-    // Dashboard Utama & Laporan Penjualan
     public function index(Request $request, Response $response) {
         $db = new Db();
         $conn = $db->connect();
@@ -34,7 +33,6 @@ class AdminController {
         ]);
     }
 
-    // List Menu untuk CRUD
     public function listMenu(Request $request, Response $response) {
         $db = new Db();
         $conn = $db->connect();
@@ -42,7 +40,6 @@ class AdminController {
         return $this->view->render($response, 'admin/menu.html', ['menus' => $menus]);
     }
 
-    // Moderasi Testimoni
     public function listTestimoni(Request $request, Response $response) {
         $db = new Db();
         $conn = $db->connect();
@@ -50,7 +47,6 @@ class AdminController {
         return $this->view->render($response, 'admin/testimoni.html', ['testimonis' => $testimonis]);
     }
 
-    // Update Status Pesanan
     public function updateStatus(Request $request, Response $response) {
         $data = $request->getParsedBody();
         $db = new Db();

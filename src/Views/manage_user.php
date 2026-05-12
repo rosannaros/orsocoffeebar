@@ -95,8 +95,6 @@
 
 <script>
 
-//Memuat semua data user dari database
-
 async function loadUsers() {
     const tbody = document.getElementById("table-user-body");
     try {
@@ -128,8 +126,6 @@ async function loadUsers() {
     }
 }
 
-//Menyimpan user baru ke database
-
 async function saveUser(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
@@ -146,15 +142,13 @@ async function saveUser(e) {
             alert("User baru berhasil ditambahkan!");
             bootstrap.Modal.getInstance(document.getElementById('modalTambahUser')).hide();
             e.target.reset();
-            loadUsers(); // Refresh tabel
+            loadUsers();
         } else {
             const err = await res.json();
             alert("Gagal: " + (err.error || "Terjadi kesalahan"));
         }
     } catch (e) { console.error(e); }
 }
-
-// Membuka modal edit dan mengisi data secara otomatis
 
 function openEditUserModal(user) {
     document.getElementById('edit-user-id').value = user.id_user;
@@ -164,15 +158,13 @@ function openEditUserModal(user) {
     new bootstrap.Modal(document.getElementById('modalEditUser')).show();
 }
 
-//Mengirim pembaruan data user ke database
-
 async function updateUser(e) {
     e.preventDefault();
     const id = document.getElementById('edit-user-id').value;
     const fd = new FormData(e.target);
     const payload = Object.fromEntries(fd.entries());
     
-    if(!payload.password) delete payload.password; // Jangan kirim password jika kosong
+    if(!payload.password) delete payload.password;
 
     try {
         const res = await fetch(`${BASE_URL}/users/${id}`, { 
@@ -190,8 +182,6 @@ async function updateUser(e) {
         }
     } catch (e) { console.error(e); }
 }
-
-// Menghapus user
 
 async function deleteUser(id) {
     if(confirm("Apakah Anda yakin ingin menghapus user ini?")) {

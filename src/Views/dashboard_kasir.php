@@ -311,7 +311,6 @@ function filterTable(status) {
     renderTable(status);
 }
 
-// COMPLETE ORDER
 async function completeOrder(id) {
     if(confirm('Tandai pesanan ini sudah selesai & dibayar?')) {
         await fetch(`${BASE_URL}/admin/orders/complete/${id}`, {
@@ -322,7 +321,6 @@ async function completeOrder(id) {
     }
 }
 
-// DETAIL PESANAN
 async function showDetail(id) {
     const data = await fetch(`${BASE_URL}/orders/detail/${id}`)
         .then(r => r.json());

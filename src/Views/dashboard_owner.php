@@ -25,7 +25,6 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* SIDEBAR */
 .sidebar {
     background: linear-gradient(180deg, #3e2c1c, #2b1d12);
     min-height: 100vh;
@@ -59,13 +58,11 @@ body {
     color: white !important;
 }
 
-/* MAIN */
 .main-content {
     margin-left: 260px;
     padding: 35px;
 }
 
-/* CONTENT BOX */
 .content-box {
     background: white;
     padding: 25px;
@@ -146,7 +143,6 @@ async function loadPage(url) {
 
         document.getElementById("content-area").innerHTML = html;
 
-        // Jalankan ulang script
         const scripts = document.getElementById("content-area").querySelectorAll("script");
         scripts.forEach(oldScript => {
             const newScript = document.createElement("script");
@@ -154,7 +150,6 @@ async function loadPage(url) {
             document.body.appendChild(newScript);
         });
 
-        // 🔥 TAMBAHAN INI (PENTING BANGET)
         setTimeout(() => {
             if (url.includes("summary") && typeof loadLaporan === "function") loadLaporan();
             if (url.includes("pesanan") && typeof loadOrders === "function") loadOrders();
