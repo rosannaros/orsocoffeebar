@@ -141,7 +141,7 @@ export default {
 .testimoni-card img {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
+  border-radius: 12%;
   object-fit: cover;
   position: absolute;
   top: -50px;
