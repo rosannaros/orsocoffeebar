@@ -28,7 +28,7 @@
           <p class="order-subtitle">Kamu memiliki {{ activeOrders.length }} pesanan yang sedang berjalan</p>
         </header>
 
-        <div v-for="order in activeOrders" :key="order.id_pesanan" class="order-card-group" style="margin-bottom: 40px;">
+        <div v-for="order in activeOrders" :key="order.id_pesanan" class="order-card-group">
           
           <div class="status-tracker-card">
             <div class="status-main">
@@ -196,7 +196,7 @@ export default {
 
   mounted() {
     this.fetchActiveOrder();
-    this.refreshInterval = setInterval(this.fetchActiveOrder, 30000);
+    this.refreshInterval = setInterval(this.fetchActiveOrder, 15 * 60 * 1000);
   },
 
   beforeUnmount() {
