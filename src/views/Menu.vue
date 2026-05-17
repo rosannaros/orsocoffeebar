@@ -370,9 +370,7 @@ export default {
   .menu-card p {
     font-size: 8px;
     line-height: 1.2;
-    display: block;            
-    -webkit-line-clamp: none;  
-    overflow: visible;        
+    display: block;                
     margin-top: 6px;
     margin-bottom: 12px;
     flex-grow: 1;            
