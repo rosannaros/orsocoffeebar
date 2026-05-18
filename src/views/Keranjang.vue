@@ -173,7 +173,7 @@ export default {
             },
             onError: () => Swal.fire("Gagal", "Pembayaran gagal.", "error"),
             onClose: () => {
-              Swal.fire("Info", "Pesanan tersimpan, silakan bayar nanti.", "warning")
+              Swal.fire("Info", "Pesanan tersimpan, silakan bayar nanti.", "info")
                 .then(() => this.$router.push('/pesanan'));
             }
           });
