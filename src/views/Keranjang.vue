@@ -184,7 +184,7 @@ export default {
         Swal.fire({
           icon: 'error',
           title: 'Pesanan Gagal',
-          text: 'Maaf, terjadi kendala. Pastikan koneksi stabil atau cek ketersediaan menu.',
+          text: 'Maaf, terjadi kendala pada koneksi, ketersediaan menu, atau sistem pembayaran. Silakan coba beberapa saat lagi.',
           confirmButtonColor: '#5C4033',
         });
       }
