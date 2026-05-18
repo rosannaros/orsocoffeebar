@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 12 Bulan Mei 2026 pada 05.56
+-- Waktu pembuatan: 18 Bulan Mei 2026 pada 07.38
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -305,27 +305,27 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id_menu`, `nama_menu`, `harga`, `kategori`, `image_url`, `deskripsi`, `status_menu`) VALUES
 (1, 'Strawberry Coffee', 25000.00, 'Coffee', 'Strawberry-Coffee.png', 'Espresso dengan sentuhan susu stroberi menghadirkan perpaduan rasa kopi yang unik, segar, dan seimbang.', 'habis'),
-(2, 'Kopi Susu', 25000.00, 'Coffee', 'menu-1769152288.png', 'Perpaduan kopi dan susu yang menghasilkan rasa lembut, creamy, dan seimbang.', 'tersedia'),
+(2, 'Kopi Susu', 25000.00, 'Coffee', 'menu-1769152288.png', 'Perpaduan kopi dan susu yang menghasilkan rasa lembut, creamy, dan seimbang. ', 'tersedia'),
 (3, 'Americano', 18000.00, 'Coffee', 'menu-1769152417.png', 'Espresso yang dipadukan dengan air panas menghasilkan rasa kopi yang ringan dan aromatik.', 'tersedia'),
 (4, 'Cappucino', 25000.00, 'Coffee', 'menu-1769152606.png', 'Perpaduan espresso, susu, dan foam lembut yang menghasilkan rasa kopi seimbang dan creamy.', 'tersedia'),
-(5, 'Coffee Caramel', 25000.00, 'Coffee', 'menu-1769152736.png', 'Espresso dengan sentuhan karamel manis menghadirkan rasa kopi yang lembut dan seimbang.', 'tersedia'),
-(6, 'Mocha', 28000.00, 'Coffee', 'menu-1769153167.jpg', 'Espresso dengan cokelat dan susu menghadirkan rasa kopi yang manis dan creamy.', 'tersedia'),
+(5, 'Coffee Caramel', 25000.00, 'Coffee', 'menu-1769152736.png', 'Espresso dengan sentuhan karamel manis menghadirkan rasa kopi yang lembut dan seimbang. ', 'tersedia'),
+(6, 'Mocha', 28000.00, 'Coffee', 'menu-1769153167.jpg', 'Espresso dengan cokelat dan susu menghadirkan rasa kopi yang manis dan creamy. ', 'tersedia'),
 (7, 'Sweet Creamy Latte', 25000.00, 'Coffee', 'menu-1769153526.jpg', 'Perpaduan espresso dan susu creamy dengan rasa manis yang lembut.', 'tersedia'),
 (8, 'Coffee Strawberry Cheesecake', 28000.00, 'Coffee', 'menu-1769156303.png', 'Espresso dengan sentuhan cheesecake creamy dan stroberi segar yang lembut dan seimbang.', 'tersedia'),
 (9, 'Blake Rose', 25000.00, 'Coffee', 'menu-1769154313.png', 'Espresso dengan sentuhan aroma mawar menghadirkan rasa kopi yang unik dan elegan.', 'tersedia'),
 (10, 'Cafe Latte', 25000.00, 'Coffee', 'menu-1769154169.png', 'Espresso dan susu segar menghasilkan rasa kopi yang lembut dan seimbang.', 'tersedia'),
 (11, 'Lychee Tea', 25000.00, 'Tea', 'menu-1769154517.png', 'Teh dengan rasa leci manis yang segar dan harum.', 'habis'),
-(12, 'Thai Tea', 25000.00, 'Tea', 'menu-1769154573.png', 'Teh khas Thailand dengan rasa manis dan creamy.', 'tersedia'),
-(13, 'Matcha', 28000.00, 'Tea', 'menu-1769151903.jpg', 'Minuman teh hijau dengan rasa lembut dan menenangkan.', 'tersedia'),
-(14, 'Lychee Lime Tea', 25000.00, 'Tea', 'menu-1769154645.png', 'Perpaduan teh, leci manis, dan jeruk nipis yang menyegarkan.', 'tersedia'),
+(12, 'Thai Tea', 25000.00, 'Tea', 'menu-1769154573.png', 'Teh khas Thailand dengan rasa manis dan creamy. ', 'tersedia'),
+(13, 'Matcha', 28000.00, 'Tea', 'menu-1769151903.jpg', 'Minuman teh hijau dengan rasa lembut dan menenangkan. ', 'tersedia'),
+(14, 'Lychee Lime Tea', 25000.00, 'Tea', 'menu-1769154645.png', 'Perpaduan teh, leci manis, dan jeruk nipis yang menyegarkan. ', 'tersedia'),
 (15, 'Strawberry Tea', 25000.00, 'Tea', 'menu-1769154696.jpg', 'Teh dengan rasa stroberi manis dan segar.', 'tersedia'),
 (16, 'Classic Mojito', 23000.00, 'Mojito', 'menu-1769154755.jpg', 'Minuman segar dari mint dan jeruk nipis yang menyegarkan.', 'tersedia'),
 (17, 'Strawberry Mojito', 25000.00, 'Mojito', 'menu-1769155070.jpg', 'Mojito segar dengan sentuhan stroberi manis dan asam.', 'tersedia'),
-(18, 'Chocolate', 28000.00, 'Non-Coffee', 'menu-1769154861.jpg', 'Minuman cokelat dengan rasa manis dan creamy.', 'tersedia'),
-(19, 'Chocoberry', 30000.00, 'Non-Coffee', 'menu-1772009059.png', 'Perpaduan cokelat lembut dan susu stroberi segar yang manis.', 'tersedia'),
+(18, 'Chocolate', 28000.00, 'Non-Coffee', 'menu-1769154861.jpg', 'Minuman cokelat dengan rasa manis dan creamy. ', 'tersedia'),
+(19, 'Chocoberry', 30000.00, 'Non-Coffee', 'menu-1772009059.png', 'Perpaduan cokelat lembut dan susu stroberi segar yang manis. ', 'tersedia'),
 (20, 'Red Velvet', 28000.00, 'Non-Coffee', 'menu-1777887328.png', 'Perpaduan susu creamy dan red velvet premium yang menghadirkan rasa manis lembut di setiap tegukan.', 'tersedia'),
-(21, 'Chocopresso', 30000.00, 'Coffee', 'menu-1772008513.png', 'Perpaduan espresso dan cokelat yang menghasilkan rasa kuat, manis, dan kaya.', 'tersedia'),
-(22, 'Caramel Latte', 30000.00, 'Non-Coffee', 'menu-1772008686.png', 'Minuman susu creamy dengan sentuhan karamel manis yang lembut dan menyegarkan.', 'tersedia');
+(21, 'Chocopresso', 30000.00, 'Coffee', 'menu-1772008513.png', 'Perpaduan espresso dan cokelat yang menghasilkan rasa kuat, manis, dan kaya. ', 'tersedia'),
+(22, 'Caramel Latte', 30000.00, 'Non-Coffee', 'menu-1772008686.png', 'Minuman susu creamy dengan sentuhan karamel manis yang lembut dan menyegarkan. 🥛🍯', 'tersedia');
 
 -- --------------------------------------------------------
 
@@ -1093,9 +1093,7 @@ INSERT INTO `users` (`id_user`, `nama`, `email`, `password`, `role`) VALUES
 (6, 'roje123', 'roje12@gmail.com', '$2y$10$rSMkaZuCH4M7qs9vE1nAfueIn/IbpMXjTanz9Sg98kC8FppC0mqb.', 'pelanggan'),
 (7, 'maritza', 'maritza@gmail.com', '$2y$10$bh4e1wSaRkNt6yEah7U2JebDKXf0GqLW557LapnNt/TDxc14TEJXi', 'kasir'),
 (8, 'inaa', 'ina@gmail.com', '$2y$10$q/4NTmieJ81bFPGVguusl.7/7iCmEEoatMXkZgZhR83UXe5C/uI76', 'pelanggan'),
-(11, 'lana', 'lanaza@gmail.com', '$2y$10$e2IK2LSVv1eFAWW1JQal2ejQhGLBwHUShBrTsf8gzbTAS5rnOgtc2', 'pelanggan'),
-(26, 'maritza', 'maritza123@gmail.com', '$2y$10$A3/DV4oYUmrJQozjccjAd.ya88SeHNECW7X6r7iMztmVWL3jh.d46', 'pelanggan'),
-(28, 'maritzaa', 'maritzaaa18@gmail.com', '$2y$10$1T4HSUHRSaZmFgnp2S3.duB7ZeCxMyDCKom7KBbuYWhPxMG/Z8UA.', 'pelanggan');
+(11, 'lana', 'lanaza@gmail.com', '$2y$10$e2IK2LSVv1eFAWW1JQal2ejQhGLBwHUShBrTsf8gzbTAS5rnOgtc2', 'pelanggan');
 
 --
 -- Indexes for dumped tables

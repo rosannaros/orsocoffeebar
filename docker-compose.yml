@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # Service untuk Backend Slim kamu
   app:
     build: 
       context: .
@@ -16,8 +15,12 @@ services:
     restart : always
     networks:
       - orso-network
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: orso_db
 
-  # Service untuk Database MySQL
   db:
     image: mysql:8.0
     container_name: orso-mysql

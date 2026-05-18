@@ -8,6 +8,12 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      DB_HOST: 127.0.0.1
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: orso_db
+
     services:
       mysql:
         image: mysql:8
@@ -45,7 +51,7 @@ jobs:
     
     - name: Import Database
       run: |
-        mysql -h 127.0.0.1 -u root -proot orso_db < database.sql
+        mysql -h $DB_HOST -u $DB_USER -p$DB_PASS $DB_NAME < database.sql
       
     - name: Run PHPUnit
       run: php vendor/bin/phpunit
