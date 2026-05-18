@@ -21,6 +21,7 @@
     </table>
 </div>
 
+<!-- Modal Tambah Menu -->
 <div class="modal fade" id="modalTambahMenu">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -57,6 +58,7 @@
     </div>
 </div>
 
+<!-- Modal Edit Menu -->
 <div class="modal fade" id="modalEditMenu">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -95,8 +97,16 @@
     </div>
 </div>
 
-<script>
+<!-- Modal Preview Foto -->
+<div class="modal fade" id="fotoMenuModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <img id="fotoMenuModalImg" src="" class="img-fluid" alt="Preview Foto Menu">
+    </div>
+  </div>
+</div>
 
+<script>
 async function loadMenu() {
     try {
         const res = await fetch(`${BASE_URL}/menu`);
@@ -105,23 +115,22 @@ async function loadMenu() {
         document.getElementById("table-menu-body").innerHTML = data.map(m => `
             <tr>
                 <td>
-                    <img src="${BASE_URL}/uploads/menu/${m.image_url}" class="img-preview">
+                    <img src="${BASE_URL}/uploads/menu/${m.image_url}" 
+                         class="img-preview" 
+                         style="max-width:80px;cursor:pointer"
+                         onclick="showMenuFoto('${BASE_URL}/uploads/menu/${m.image_url}')">
                 </td>
                 <td>${m.nama_menu}</td>
                 <td>${m.kategori}</td>
                 <td>Rp ${parseInt(m.harga).toLocaleString()}</td>
-
-                <!-- 🔥 STATUS BADGE -->
                 <td>
                     ${m.status_menu === 'habis' 
                         ? '<span class="badge bg-danger">Habis</span>' 
                         : '<span class="badge bg-success">Tersedia</span>'}
                 </td>
-
                 <td>
                     <button onclick='openEditModal(${JSON.stringify(m)})'
                         class="btn btn-sm text-primary">Edit</button>
-
                     <button onclick="deleteMenu(${m.id_menu})"
                         class="btn btn-sm text-danger">Hapus</button>
                 </td>
@@ -133,6 +142,12 @@ async function loadMenu() {
     }
 }
 
+function showMenuFoto(url) {
+    document.getElementById("fotoMenuModalImg").src = url;
+    const modal = new bootstrap.Modal(document.getElementById('fotoMenuModal'));
+    modal.show();
+}
+
 async function saveMenu(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
@@ -140,9 +155,7 @@ async function saveMenu(e) {
     try {
         const res = await fetch(`${BASE_URL}/owner/menu`, {
             method: "POST",
-            headers: {
-                "X-Role": "pemilik"
-            },
+            headers: { "X-Role": "pemilik" },
             body: fd
         });
 
@@ -154,7 +167,6 @@ async function saveMenu(e) {
         } else {
             alert("Gagal menambah menu");
         }
-
     } catch (err) {
         console.error("Save error:", err);
     }
@@ -166,7 +178,6 @@ function openEditModal(menu) {
     document.getElementById('edit-harga').value = menu.harga;
     document.getElementById('edit-kategori').value = menu.kategori;
     document.getElementById('edit-deskripsi').value = menu.deskripsi || '';
-
     document.getElementById('edit-status').value = menu.status_menu || 'tersedia';
 
     new bootstrap.Modal(document.getElementById('modalEditMenu')).show();
@@ -174,16 +185,13 @@ function openEditModal(menu) {
 
 async function updateMenu(e) {
     e.preventDefault();
-
     const id = document.getElementById('edit-id').value;
     const fd = new FormData(e.target);
 
     try {
         const res = await fetch(`${BASE_URL}/owner/menu/${id}`, {
             method: "POST",
-            headers: {
-                "X-Role": "pemilik"
-            },
+            headers: { "X-Role": "pemilik" },
             body: fd
         });
 
@@ -194,7 +202,6 @@ async function updateMenu(e) {
         } else {
             alert("Gagal update menu");
         }
-
     } catch (err) {
         console.error("Update error:", err);
     }
@@ -214,7 +221,6 @@ async function deleteMenu(id) {
             } else {
                 alert("Gagal hapus menu");
             }
-
         } catch (err) {
             console.error("Delete error:", err);
         }
