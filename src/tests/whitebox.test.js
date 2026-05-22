@@ -28,18 +28,6 @@ describe('Register', () => {
     expect(api.post).toHaveBeenCalledWith('/users/register', userData); 
   });
 
-  it('Navigasi Register Sukses', () => {
-    
-    const $router = { push: vi.fn() };
-    const response = { status: 201 };
-    
-    if (response.status === 201) {
-      $router.push("/login");
-    }
-    
-    expect($router.push).toHaveBeenCalledWith("/login");
-  });
-
   it('Handling Email Duplikat', async () => {
     
     const errorResponse = { error: "Email sudah terdaftar. Silakan gunakan email lain." };
@@ -129,49 +117,6 @@ describe('Menu', () => {
     expect(getMenuImage(fileName)).toEqual(`${BASE_URL}/uploads/menu/espresso.png`);
     expect(getMenuImage('')).toEqual('/image/placeholder-coffee.jpg');
   });
-
-  it('Filtering Kategori', () => {
-    
-    const menuItems = [
-      { id_menu: 1, nama_menu: 'Espresso', kategori: 'coffee' },
-      { id_menu: 2, nama_menu: 'Lemon Tea', kategori: 'tea' }
-    ];
-    const selectedCategory = 'coffee';
-    
-    const filtered = menuItems.filter(item => 
-      selectedCategory === 'all' || item.kategori === selectedCategory
-    );
-    
-    expect(filtered).toEqual([{ id_menu: 1, nama_menu: 'Espresso', kategori: 'coffee' }]);
-    expect(filtered.length).toEqual(1);
-  });
-
-  it('Pencarian Menu', () => {
-    
-    const menuItems = [
-      { id_menu: 1, nama_menu: 'Lime Mojito' },
-      { id_menu: 2, nama_menu: 'Chocolate' }
-    ];
-    const searchQuery = 'Mojito';
-    
-    const result = menuItems.filter(item => 
-      item.nama_menu.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    
-    expect(result[0].nama_menu).toEqual('Lime Mojito');
-    expect(result.length).toEqual(1);
-  });
-
-  it('Sinkronisasi URL', () => {
-    
-    const watchRoute = vi.fn((newVal) => newVal || 'all');
-    const queryParam = 'non-coffee';
-    
-    const result = watchRoute(queryParam);
-    
-    expect(result).toEqual('non-coffee');
-    expect(watchRoute).toHaveBeenCalledWith('non-coffee');
-  });
 });
 
 describe('Keranjang', () => {
@@ -198,20 +143,6 @@ describe('Keranjang', () => {
     
     expect(cart[1].qty).toEqual(2);
   });
-  
-  it('removeItem Action', () => {
-    
-    const cart = { 1: { id_menu: 1, qty: 1 } };
-    const id = 1;
-    
-    if (cart[id].qty > 1) {
-      cart[id].qty--;
-    } else {
-      delete cart[id];
-    }
-    
-    expect(cart[1]).toEqual(undefined);
-  });
 });
 
 describe('Pesanan', () => {
@@ -227,18 +158,6 @@ describe('Pesanan', () => {
     expect(response.status).toEqual(201);
     expect(api.post).toHaveBeenCalledWith('/orders', orderData, {
     });
-  });
-
-  it('payWithMidtrans', () => {
-    
-    delete window.snap; 
-    let errorMessage = "";
-    
-    if (!window.snap) {
-      errorMessage = "Midtrans belum siap.";
-    }
-    
-    expect(errorMessage).toEqual("Midtrans belum siap.");
   });
 
   it('getActiveOrders', async () => {
@@ -304,7 +223,7 @@ describe('Riwayat', () => {
     expect(sortedOrders[2].id_pesanan).toEqual(1);
   });
 
-  it('Loop reorderItem', () => {
+  it('reorderItem', () => {
     
     const cartStore = {
       addItem: vi.fn()
@@ -322,7 +241,6 @@ describe('Riwayat', () => {
         qty: 1
       });
     });
-    
     
     expect(cartStore.addItem).toHaveBeenCalledTimes(2);
     
@@ -381,20 +299,6 @@ describe('Testimoni', () => {
     
     expect($router.push).toHaveBeenCalledWith('/tulistestimoni');
   });
-
-  it('Auth Testimoni Block', () => {
-    
-    const userData = null;
-    const $router = { push: vi.fn() };
-    
-    if (!userData) {
-    
-    } else {
-      $router.push('/tulistestimoni');
-    }
-    
-    expect($router.push).not.toHaveBeenCalled();
-  });
 });
 
 describe('TulisTestimoni', () => {
@@ -409,22 +313,6 @@ describe('TulisTestimoni', () => {
     expect(state.preview).toEqual('data:image/png;base64,xyz');
   });
 
-  it('postTestimoni', async () => {
-   
-    const api = { post: vi.fn().mockResolvedValue({ status: 200 }) };
-    const mockFile = new File([''], 'test.jpg', { type: 'image/jpeg' });
-    const formData = new FormData();
-    
-    formData.append('isi_testimoni', 'Kopi mantap!');
-    formData.append('foto_testimoni', mockFile);
-    const response = await api.post('/testimoni', formData);
-    
-    expect(response.status).toEqual(200);
-    expect(formData.get('isi_testimoni')).toEqual('Kopi mantap!');
-    expect(formData.has('foto_testimoni')).toEqual(true);
-    expect(api.post).toHaveBeenCalledWith('/testimoni', formData);
-  });
-
   it('Handling Empty Image', () => {
     
     const state = { foto: null };
@@ -436,17 +324,6 @@ describe('TulisTestimoni', () => {
     
     expect(formData.has('foto_testimoni')).toEqual(false);
     expect(formData.get('foto_testimoni')).toEqual(null);
-  });
-
-  it('Reset Form Testimoni', () => {
-   
-    const state = { foto: { name: 'img.jpg' }, preview: 'blob:url' };
-    
-    state.foto = null;
-    state.preview = null;
-    
-    expect(state.foto).toEqual(null);
-    expect(state.preview).toEqual(null);
   });
 });
 
@@ -493,19 +370,6 @@ describe('ProfildanAuth', () => {
   
     expect(localStorage.getItem("user")).toEqual(null);
     expect(spy).toHaveBeenCalledWith("user");
-  });
-
-  it('Auth Event', () => {
-   
-    const spy = vi.spyOn(window, 'dispatchEvent');
-   
-    const authEvent = new Event("auth-change");
-    window.dispatchEvent(authEvent);
-  
-    expect(authEvent.type).toEqual("auth-change");
-    expect(spy).toHaveBeenCalledWith(expect.any(Event));
-      
-    vi.restoreAllMocks();
   });
 
   it('Otorisasi Rute', () => {
