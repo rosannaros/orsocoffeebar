@@ -107,7 +107,7 @@ export const postTestimoni = async (formData) => {
 
 export const payWithMidtrans = (snapToken, callbacks) => {
   if (!window.snap) {
-    Swal.fire("Error", "Sistem pembayaran belum siap. Silakan refresh halaman.", "error");
+    Swal.fire("Error", "Cek koneksi internet kamu. Silakan refresh halaman.", "error");
     return;
   }
 

@@ -169,7 +169,7 @@ export default {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: 'Token pembayaran tidak ditemukan. Coba lagi nanti.',
+          text: 'Token pembayaran tidak ditemukan. Silakan coba lagi.',
           confirmButtonColor: '#5C4033'
         });
       }
