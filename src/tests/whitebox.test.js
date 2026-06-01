@@ -96,7 +96,7 @@ describe('Menu', () => {
       get: vi.fn().mockRejectedValue(new Error('Network Error'))
     };
     let result = null;
-    
+
     try {
       const response = await api.get('/menu');
       result = response.data;
@@ -161,11 +161,10 @@ describe('Pesanan', () => {
     };
     const orderData = { total: 50000, items: [{ id_menu: 1, qty: 2 }] };
     
-    const response = await api.post('/orders', orderData, {});
+    const response = await api.post('/order', orderData, {});
     
     expect(response.status).toEqual(201);
-    expect(api.post).toHaveBeenCalledWith('/orders', orderData, {
-    });
+    expect(api.post).toHaveBeenCalledWith('/order', orderData, {});
   });
 
   it('getActiveOrders', async () => {
@@ -184,20 +183,21 @@ describe('Pesanan', () => {
   it('Filter activeOrders', () => {
     
     const allOrders = [
-      { id: 1, status: 'pending' },
-      { id: 2, status: 'diproses' },
-      { id: 3, status: 'selesai' } 
+      { id: 1, status_pesanan: 'pending' },
+      { id: 2, status_pesanan: 'diproses' },
+      { id: 3, status_pesanan: 'selesai' } 
     ];
     
-    const activeOrders = allOrders.filter(o => 
-      o.status === 'pending' || o.status === 'diproses'
-    );
+    const activeOrders = allOrders.filter(o => {
+      const s = o.status_pesanan.toLowerCase();
+      return s === 'pending' || s === 'diproses';
+    });
     
     expect(activeOrders.length).toEqual(2);
-    expect(activeOrders[0].status).toEqual('pending');
-    expect(activeOrders[1].status).toEqual('diproses');
+    expect(activeOrders[0].status_pesanan).toEqual('pending');
+    expect(activeOrders[1].status_pesanan).toEqual('diproses');
     
-    const hasFinishedOrder = activeOrders.some(o => o.status === 'selesai');
+    const hasFinishedOrder = activeOrders.some(o => o.status_pesanan === 'selesai');
     expect(hasFinishedOrder).toEqual(false);
   });
 });
@@ -326,8 +326,8 @@ describe('TulisTestimoni', () => {
     const state = { foto: null };
     const formData = new FormData();
     
-    if (state.foto) {
-      formData.append('foto_testimoni', state.foto);
+    if (this.foto) {
+      formData.append('foto_testimoni', this.foto);
     }
     
     expect(formData.has('foto_testimoni')).toEqual(false);
