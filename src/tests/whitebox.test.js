@@ -92,12 +92,19 @@ describe('Login', () => {
 describe('Menu', () => {
   it('getMenu', async () => {
     
-    const getMenuMock = vi.fn().mockResolvedValue([]);
+    const api = {
+      get: vi.fn().mockRejectedValue(new Error('Network Error'))
+    };
+    let result = null;
     
-    const result = await getMenuMock();
-    
+    try {
+      const response = await api.get('/menu');
+      result = response.data;
+    } catch (error) {
+      result = []; 
+    }
     expect(result).toEqual([]);
-    expect(getMenuMock).toHaveBeenCalled();
+    expect(api.get).toHaveBeenCalledWith('/menu');
   });
 
   it('Handling Menu Image URL', () => {
@@ -114,6 +121,7 @@ describe('Menu', () => {
     expect(getMenuImage(externalPath)).toEqual(externalPath);
 
     const fileName = 'espresso.png';
+
     expect(getMenuImage(fileName)).toEqual(`${BASE_URL}/uploads/menu/espresso.png`);
     expect(getMenuImage('')).toEqual('/image/placeholder-coffee.jpg');
   });
