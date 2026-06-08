@@ -14,15 +14,13 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 
-// Agar Slim mengenali _METHOD: PUT saat menggunakan POST (Spoofing)
 $app->add(\Slim\Middleware\MethodOverrideMiddleware::class); 
 
-// 1. MIDDLEWARE UTAMA
+// MIDDLEWARE UTAMA
 $app->addRoutingMiddleware(); 
 $app->addBodyParsingMiddleware(); 
 $app->addErrorMiddleware(true, true, true); 
 
-// 2. MIDDLEWARE CORS
 $app->add(function ($request, $handler) {
     $response = $handler->handle($request);
     return $response
@@ -31,14 +29,11 @@ $app->add(function ($request, $handler) {
         ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 });
 
-// 3. KONFIGURASI TWIG (View Engine)
 $twig = Twig::create(__DIR__ . '/../src/Views', ['cache' => false]);
 $app->add(TwigMiddleware::create($app, $twig));
 
 $adminController = new AdminController($twig);
 
-// 4. RUTE TAMPILAN (VIEW ROUTES)
-// LOGIN
 $app->get('/login', function ($request, $response) use ($twig) {
     return $twig->render($response, 'login.php'); 
 });
@@ -53,7 +48,6 @@ $app->get('/logout', function ($request, $response) {
         ->withStatus(302);
 });
 
-// DASHBOARD
 $app->get('/dashboard/owner', function ($request, $response) use ($twig) {
     return $twig->render($response, 'dashboard_owner.php'); 
 });
@@ -86,7 +80,6 @@ $app->get('/manage/testimoni', function ($request, $response) use ($twig) {
     return $twig->render($response, 'manage_testimoni.php');
 });
 
-// 5. RUTE API UMUM
 $app->post('/users/register', UserController::class . ':register');
 $app->post('/auth/login', UserController::class . ':login');
 $app->get('/menu', MenuController::class . ':getAll'); 
@@ -95,20 +88,17 @@ $app->get('/users', UserController::class . ':getAllUsers');
 $app->put('/users/{id}', UserController::class . ':updateUser'); 
 $app->delete('/users/{id}', UserController::class . ':deleteUser'); 
 
-// 6. RUTE PELANGGAN (Wajib Login)
 $app->group('', function ($group) {
     $group->post('/order', OrderController::class . ':createOrder');
     $group->post('/testimoni', TestimoniController::class . ':create');
 })->add(new RoleMiddleware(['pelanggan', 'kasir', 'pemilik']));
 
-// 7. RUTE KASIR
 $app->group('/kasir', function ($group) {
     $group->get('/orders', OrderController::class . ':getAllOrders');
     $group->get('/order/{id}', OrderController::class . ':getOrderDetail');
     $group->put('/order/{id}/status', OrderController::class . ':updateStatus');
 })->add(new RoleMiddleware(['kasir', 'pemilik']));
 
-// 8. RUTE OWNER & MANAJEMEN
 $app->group('/owner', function ($group) {
     $group->get('/laporan/harian', ReportController::class . ':dailyReport');
     $group->get('/laporan/bulanan', ReportController::class . ':monthlyReport');
@@ -119,7 +109,6 @@ $app->group('/owner', function ($group) {
     $group->delete('/testimoni/{id}', TestimoniController::class . ':delete');
 })->add(new RoleMiddleware(['pemilik']));
 
-// 9. GRUP RUTE TAMPILAN ADMIN (Menggunakan AdminController)
 $app->group('/admin', function ($group) use ($adminController) {
     $group->get('/dashboard', [$adminController, 'index']);
     $group->get('/menu', [$adminController, 'listMenu']);
@@ -127,7 +116,6 @@ $app->group('/admin', function ($group) use ($adminController) {
     $group->post('/order/update', [$adminController, 'updateStatus']);
 });
 
-// 10. API TAMBAHAN LAINNYA
 $app->post('/payment/notification', \App\Controllers\MidtransHandler::class . ':handleNotification');
 $app->post('/notification/handling', \App\Controllers\MidtransController::class . ':handleNotification');
 $app->get('/orders/user/{id_user}', \App\Controllers\OrderController::class . ':getCustomerOrders');

@@ -1090,7 +1090,6 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `nama`, `email`, `password`, `role`) VALUES
 (1, 'Afrah', 'afrah@gmail.com', '$2y$10$xjq4eEtVge8JCTp8xnJfpuPBU4IZeb/92SLjT8N4NZ7hs9hMhuQla', 'pemilik'),
-(6, 'roje123', 'roje12@gmail.com', '$2y$10$rSMkaZuCH4M7qs9vE1nAfueIn/IbpMXjTanz9Sg98kC8FppC0mqb.', 'pelanggan'),
 (7, 'maritza', 'maritza@gmail.com', '$2y$10$bh4e1wSaRkNt6yEah7U2JebDKXf0GqLW557LapnNt/TDxc14TEJXi', 'kasir'),
 (8, 'inaa', 'ina@gmail.com', '$2y$10$q/4NTmieJ81bFPGVguusl.7/7iCmEEoatMXkZgZhR83UXe5C/uI76', 'pelanggan'),
 (11, 'lana', 'lanaza@gmail.com', '$2y$10$e2IK2LSVv1eFAWW1JQal2ejQhGLBwHUShBrTsf8gzbTAS5rnOgtc2', 'pelanggan');
