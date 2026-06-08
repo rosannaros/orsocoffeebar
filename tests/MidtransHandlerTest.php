@@ -18,11 +18,9 @@ class MidtransHandlerTest extends TestCase
         $this->responseFactory = new ResponseFactory();
     }
 
-    // Menguji JSON yang tidak valid
     public function testHandleNotificationInvalidJson()
     {
         $request = $this->requestFactory->createServerRequest("POST", "/notification");
-        // Body dikirim string sembarang yang bukan JSON
         $stream = fopen('php://temp', 'r+');
         fwrite($stream, 'bukan-json-format');
         rewind($stream);
@@ -34,7 +32,6 @@ class MidtransHandlerTest extends TestCase
         $this->assertEquals(400, $result->getStatusCode());
     }
 
-    // Menguji Pembayaran Berhasil (Settlement)
     public function testHandleNotificationSettlement()
     {
         $request = $this->requestFactory->createServerRequest("POST", "/notification");
@@ -55,7 +52,6 @@ class MidtransHandlerTest extends TestCase
         $this->assertStringContainsString('berhasil diupdate', (string)$result->getBody());
     }
 
-    // Menguji Status Lain (Pending)
     public function testHandleNotificationPending()
     {
         $request = $this->requestFactory->createServerRequest("POST", "/notification");

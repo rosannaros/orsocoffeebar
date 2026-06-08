@@ -12,7 +12,7 @@ class Db {
     public function __construct() {
         $this->host   = getenv('DB_HOST') ?: '127.0.0.1';
         $this->user   = getenv('DB_USER') ?: 'root';
-        $this->pass   = getenv('DB_PASS') ?: 'root';
+        $this->pass   = getenv('DB_PASS') ?: '';
         $this->dbname = getenv('DB_NAME') ?: 'orso_db';
     }
 
