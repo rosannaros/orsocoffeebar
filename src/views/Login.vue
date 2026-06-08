@@ -24,7 +24,7 @@
       
       <div class="auth-footer">
         Doesn’t have an account? 
-        <router-link to="/register">Register</router-link>
+        <router-link to="/register">Daftar</router-link>
       </div>
     </div>
   </section>
