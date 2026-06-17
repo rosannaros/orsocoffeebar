@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: orso-backend
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    restart : always
+    networks:
+      - orso-network
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: orso_db
+
+  db:
+    image: mysql:8.0
+    container_name: orso-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: orso_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    networks:
+      - orso-network
+
+networks:
+  orso-network:
+    driver: bridge
